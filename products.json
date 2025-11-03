@@ -1,0 +1,8 @@
+[
+  {"id":1,"category":"Perfumes Árabes","slug":"oud-essence","name":"Oud Essence","price":6800,"price_display":"$68.00","img":"product-fragrance-oud.jpg","desc":"Oud profundo y ámbar — una firma oriental duradera."},
+  {"id":2,"category":"Perfumes Árabes","slug":"rose-amber","name":"Rose Amber","price":6200,"price_display":"$62.00","img":"product-fragrance-rose.jpg","desc":"Rosa aterciopelada con ámbar cálido y un toque de especias."},
+  {"id":3,"category":"Perfumes Árabes","slug":"golden-amber","name":"Golden Amber","price":6000,"price_display":"$60.00","img":"product-fragrance-amber.jpg","desc":"Ámbar ahumado con notas suaves de vainilla y madera."},
+  {"id":4,"category":"Accesorios de Oro Laminado","slug":"delicate-chain","name":"Cadena Delicada","price":4800,"price_display":"$48.00","img":"product-piece-chain.jpg","desc":"Capa de oro 18k, perfecta para uso diario y layering."},
+  {"id":5,"category":"Accesorios de Oro Laminado","slug":"halo-pendant","name":"Colgante Halo","price":5500,"price_display":"$55.00","img":"product-piece-pendant.jpg","desc":"Motivo halo sutil inspirado en la luz y la gracia."},
+  {"id":6,"category":"Accesorios de Oro Laminado","slug":"layered-bracelet","name":"Brazalete Layered","price":3800,"price_display":"$38.00","img":"product-piece-bracelet.jpg","desc":"Apilable, acabado delicado con cierre seguro."}
+]
