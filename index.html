@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mari Elegance</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="logo">Mari Elegance</div>
+    <nav class="nav">
+      <a href="#scents">Perfumes Árabes</a>
+      <a href="#pieces">Accesorios</a>
+      <a href="#about">Sobre</a>
+      <a href="#contact">Contacto</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="home">
+    <div>
+      <h1>Favor y Gracia</h1>
+      <p>Perfumes árabes y accesorios de oro laminado. Toque de lujo delicado inspirado en la luz.</p>
+      <a class="btn" href="#products">Comprar destacados</a>
+    </div>
+  </section>
+
+  <main class="container" id="products">
+    <div id="scents">
+      <div class="section-title"><h2>Perfumes Árabes</h2><span style="color:#7a746f;font-size:13px">Aceites y esencias de larga duración</span></div>
+      <div class="grid" id="grid-scents"></div>
+    </div>
+
+    <div id="pieces" style="margin-top:34px">
+      <div class="section-title"><h2>Accesorios de Oro Laminado</h2><span style="color:#7a746f;font-size:13px">Piezas delicadas para uso diario</span></div>
+      <div class="grid" id="grid-pieces"></div>
+    </div>
+
+    <section id="about" style="margin-top:36px" class="section">
+      <h3 style="font-family:'Playfair Display',serif">Sobre Mari Elegance</h3>
+      <p style="color:#7a746f">Mari Elegance nace de la búsqueda por la belleza serena: fragancias orientales y piezas con acabado en oro que celebran la gracia cotidiana. Pedidos y consultas personalizados vía WhatsApp o correo.</p>
+    </section>
+
+    <section id="contact" style="margin-top:20px" class="section">
+      <h3 style="font-family:'Playfair Display',serif">Contacto</h3>
+      <p style="color:#7a746f">Pedidos y atención por WhatsApp.</p>
+      <a class="btn" href="https://wa.me/10000000000">Enviar mensaje</a>
+    </section>
+  </main>
+
+  <button class="cart-fixed" id="open-cart">Carrito (0)</button>
+
+  <footer class="footer">
+    <div>© 2025 Mari Elegance — Favor y Gracia</div>
+    <div style="margin-top:8px">Instagram • TikTok</div>
+  </footer>
+
+<script>
+let products = [];
+
+async function loadProducts() {
+  const res = await fetch('products.json');
+  products = await res.json();
+  const gridScents = document.getElementById('grid-scents');
+  const gridPieces = document.getElementById('grid-pieces');
+  products.forEach(p => {
+    const card = document.createElement('article');
+    card.className = 'card';
+    card.innerHTML = `
+      <img src="${p.img}" alt="${p.name}">
+      <h3>${p.name}</h3>
+      <p>${p.desc}</p>
+      <div class="price">${p.price_display}</div>
+      <div style="display:flex;gap:8px;justify-content:center">
+        <button class="small-btn" onclick="addToCart(${p.id})">Agregar</button>
+        <a class="small-btn" href="https://wa.me/10000000000?text=Quiero%20ordenar%20${encodeURIComponent(p.name)}" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    `;
+    if (p.category.includes('Perfumes')) gridScents.appendChild(card);
+    else gridPieces.appendChild(card);
+  });
+}
+
+function getCart(){ return JSON.parse(localStorage.getItem('me_cart')||'[]'); }
+function saveCart(c){ localStorage.setItem('me_cart', JSON.stringify(c)); updateCartCount(); }
+function addToCart(id){
+  const cart = getCart();
+  const item = cart.find(i=>i.id===id);
+  if(item) item.qty += 1; else cart.push({id, qty:1});
+  saveCart(cart);
+  alert('Añadido al carrito');
+}
+function updateCartCount(){
+  const cart = getCart();
+  const count = cart.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('open-cart').innerText = `Carrito (${count})`;
+}
+document.getElementById('open-cart').addEventListener('click', ()=>{ window.location.href = 'checkout.html'; });
+window.addEventListener('load', ()=>{ loadProducts(); updateCartCount(); });
+</script>
+</body>
+</html>
