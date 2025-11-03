@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Checkout - Mari Elegance</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header"><div class="logo">Mari Elegance</div></header>
+  <main class="container">
+    <h2>Carrito y Pago</h2>
+    <div id="cart-contents"></div>
+    <div id="checkout-actions" style="margin-top:20px"></div>
+  </main>
+
+<script>
+async function loadCart(){
+  const res = await fetch('products.json'); const products = await res.json();
+  const cart = JSON.parse(localStorage.getItem('me_cart')||'[]');
+  const container = document.getElementById('cart-contents');
+  if(cart.length===0){ container.innerHTML='<p>Tu carrito está vacío.</p>'; return; }
+  let html='<table style="width:100%;border-collapse:collapse"><tr><th>Producto</th><th>Cant.</th><th>Precio</th></tr>';
+  let total=0;
+  cart.forEach(ci=>{
+    const p=products.find(x=>x.id===ci.id);
+    const line=(p.price*ci.qty)/100;
+    total+=line;
+    html+=`<tr><td>${p.name}</td><td>${ci.qty}</td><td>$${line.toFixed(2)}</td></tr>`;
+  });
+  html+=`</table><p><b>Total: $${total.toFixed(2)}</b></p>`;
+  container.innerHTML=html;
+  document.getElementById('checkout-actions').innerHTML='<a class="btn" href="confirmation.html">Pagar (demo)</a>';
+}
+window.addEventListener('load',loadCart);
+</script>
+</body>
+</html>
