@@ -57,8 +57,10 @@
   </footer>
 
 <script>
+/* Simple client-side cart and product rendering */
 let products = [];
 
+/* Load products.json and render product cards */
 async function loadProducts() {
   const res = await fetch('products.json');
   products = await res.json();
@@ -77,8 +79,7 @@ async function loadProducts() {
         <a class="small-btn" href="https://wa.me/10000000000?text=Quiero%20ordenar%20${encodeURIComponent(p.name)}" target="_blank" rel="noopener">WhatsApp</a>
       </div>
     `;
-    if (p.category.includes('Perfumes')) gridScents.appendChild(card);
-    else gridPieces.appendChild(card);
+    if (p.category.includes('Perfumes')) gridScents.appendChild(card); else gridPieces.appendChild(card);
   });
 }
 
@@ -97,7 +98,9 @@ function updateCartCount(){
   document.getElementById('open-cart').innerText = `Carrito (${count})`;
 }
 document.getElementById('open-cart').addEventListener('click', ()=>{ window.location.href = 'checkout.html'; });
+
 window.addEventListener('load', ()=>{ loadProducts(); updateCartCount(); });
 </script>
+
 </body>
 </html>
